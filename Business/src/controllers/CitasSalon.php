@@ -41,7 +41,7 @@ class CitasSalon
           $request->getBody()->rewind();
           $body = (string) $request->getBody();
 
-          $data = json_decode($body, true);//lo convierte en arreglo
+          $data = json_decode($body, true);
 
           if(!is_array($data) || json_last_error() !== JSON_ERROR_NONE){
               return $this->json($response, ['errors' => ['body' => 'Debe enviar un objeto JSON válido']], 422);
@@ -90,7 +90,7 @@ class CitasSalon
           $request->getBody()->rewind();
           $body = (string) $request->getBody();
 
-          $data = json_decode($body, true);//lo convierte en arreglo
+          $data = json_decode($body, true);
 
           if(!is_array($data) || json_last_error() !== JSON_ERROR_NONE){
               return $this->json($response, ['errors' => ['body' => 'Debe enviar un objeto JSON válido']], 422);

@@ -26,7 +26,7 @@ class CitasSalon
         if (isset($args['id'])) {
             $cita = CitasSalonModel::query()
                 ->select(['id', 'nombre_cliente', 'telefono_cliente', 'servicio_solicitado', 'estilista_asignado', 'fecha_hora_cita', 'precio_servicio', 'estado', 'created_at'])
-                ->find($args['id']);//busca un elemento
+                ->find($args['id']);
 
             if ($cita === null) {
                 return $this->json($response, ['error' => 'Cita no encontrada.'], 404);
@@ -91,7 +91,6 @@ class CitasSalon
             return $this->json($response, ['errors' => $errors], 422);
         }
 
-        //verificar que el estilista no tenga otra cita pendiente en esa hora exacta
         if ($status === 'Pendiente') {
             $citasCount = CitasSalonModel::query()
                 ->where('estilista_asignado', $stylist)
@@ -128,7 +127,7 @@ class CitasSalon
                 return $this->json($response, ['error' => 'Cita no encontrada.'], 404);
             }
 
-            $data = $request->getParsedBody();//obtenemos datos del cuerpo de la solicitud
+            $data = $request->getParsedBody();
             $data = is_array($data) ? $data : [];
 
             if (isset($data['nombre_cliente'])) {
@@ -193,7 +192,6 @@ class CitasSalon
                 $cita->estado = $status;
             }
 
-            //verificar que el estilista no tenga otra cita pendiente en esa hora exacta
             if ($cita->estado === 'Pendiente') {
                 $citasCount = CitasSalonModel::query()
                     ->where('id', '<>', $cita->id)

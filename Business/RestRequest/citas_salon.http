@@ -2,11 +2,11 @@
 @uri = {{host}}/citas_salon
 
 
-### Listar todas las citas (200)
+###
 GET {{uri}}
 
 
-### Crear una cita (201)
+###
 POST {{uri}}
 Content-Type: application/json
 
@@ -20,7 +20,7 @@ Content-Type: application/json
 }
 
 
-### Crear una cita con el mismo estilista y la misma hora (409)
+###
 POST {{uri}}
 Content-Type: application/json
 
@@ -34,7 +34,7 @@ Content-Type: application/json
 }
 
 
-### Crear una cita con datos inválidos (422)
+###
 POST {{uri}}
 Content-Type: application/json
 
@@ -49,15 +49,15 @@ Content-Type: application/json
 }
 
 
-### Obtener una cita específica (200)
+###
 GET {{uri}}/1
 
 
-### Obtener una cita que no existe (404)
+###
 GET {{uri}}/999
 
 
-### Actualizar una cita existente (200)
+###
 PUT {{uri}}/1
 Content-Type: application/json
 
@@ -68,7 +68,7 @@ Content-Type: application/json
 }
 
 
-### Actualizar una cita que no existe (404)
+###
 PUT {{uri}}/999
 Content-Type: application/json
 
@@ -77,9 +77,9 @@ Content-Type: application/json
 }
 
 
-### Eliminar una cita (204)
+###
 DELETE {{uri}}/1
 
 
-### Eliminar una cita que no existe (404)
+###
 DELETE {{uri}}/999
