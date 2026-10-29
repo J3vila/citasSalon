@@ -1,0 +1,85 @@
+@host = http://localhost:9090/api
+@uri = {{host}}/citas_salon
+
+
+### Listar todas las citas (200)
+GET {{uri}}
+
+
+### Crear una cita (201)
+POST {{uri}}
+Content-Type: application/json
+
+{
+  "nombre_cliente": "Maria Fernanda Rojas",
+  "telefono_cliente": "8888-8888",
+  "servicio_solicitado": "Corte y peinado",
+  "estilista_asignado": "Carla Mora",
+  "fecha_hora_cita": "2026-11-05 10:00:00",
+  "precio_servicio": 15000
+}
+
+
+### Crear una cita con el mismo estilista y la misma hora (409)
+POST {{uri}}
+Content-Type: application/json
+
+{
+  "nombre_cliente": "Ana Lucia Vargas",
+  "telefono_cliente": "7777-7777",
+  "servicio_solicitado": "Manicure",
+  "estilista_asignado": "Carla Mora",
+  "fecha_hora_cita": "2026-11-05 10:00:00",
+  "precio_servicio": 8000
+}
+
+
+### Crear una cita con datos inválidos (422)
+POST {{uri}}
+Content-Type: application/json
+
+{
+  "nombre_cliente": "A1",
+  "telefono_cliente": "123",
+  "servicio_solicitado": "",
+  "estilista_asignado": "Carla Mora",
+  "fecha_hora_cita": "05/11/2026",
+  "precio_servicio": -5,
+  "estado": "Terminada"
+}
+
+
+### Obtener una cita específica (200)
+GET {{uri}}/1
+
+
+### Obtener una cita que no existe (404)
+GET {{uri}}/999
+
+
+### Actualizar una cita existente (200)
+PUT {{uri}}/1
+Content-Type: application/json
+
+{
+  "servicio_solicitado": "Tinte y secado",
+  "precio_servicio": 25000,
+  "estado": "Completada"
+}
+
+
+### Actualizar una cita que no existe (404)
+PUT {{uri}}/999
+Content-Type: application/json
+
+{
+  "estado": "Cancelada"
+}
+
+
+### Eliminar una cita (204)
+DELETE {{uri}}/1
+
+
+### Eliminar una cita que no existe (404)
+DELETE {{uri}}/999

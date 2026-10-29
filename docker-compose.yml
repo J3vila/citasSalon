@@ -1,0 +1,44 @@
+services:
+  jesdb:
+    image: mysql:9.7
+    container_name: jesdb
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_password
+      MYSQL_DATABASE: db_salon
+    ports:
+      - 3308:3306
+    volumes:
+      - ./db_dump:/docker-entrypoint-initdb.d
+      - ./mysql_data:/var/lib/mysql
+    secrets:
+      - db_password
+
+  jesdatos:
+    container_name: jesdatos
+    volumes:
+      - ./Data/public:/var/www/html/public
+      - ./Data/src:/var/www/html/src
+    build:
+      context: .
+      dockerfile: ./Data/Dockerfile
+    ports:
+      - 8080:80
+    depends_on:
+      - jesdb
+
+  jesnegocio:
+    container_name: jesnegocio
+    volumes:
+      - ./Business/public:/var/www/html/public
+      - ./Business/src:/var/www/html/src
+    build:
+      context: .
+      dockerfile: ./Business/Dockerfile
+    ports:
+      - 9090:80
+    depends_on:
+      - jesdatos
+
+secrets:
+  db_password:
+    file: ./db_password.txt
